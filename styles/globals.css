@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+.bb {
+  border: solid blue;
+}
+
+.br {
+  border: solid red;
+}
+
+.bh {
+  border: solid black;
+}
+
+.by {
+  border: solid yellow;
+}
