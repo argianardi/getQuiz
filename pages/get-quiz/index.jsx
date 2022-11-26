@@ -78,18 +78,26 @@ const Index = ({ questions }) => {
   return (
     <div>
       {endQuiz ? (
-        <>
-          <p>Final Score: {score}</p>
-          <button
-            className="px-3 py-1 font-bold text-white bg-blue-700 rounded-md"
-            onClick={() => handlePlayAgain()}
-          >
-            Play Again
-          </button>
-          <button className="bg-[#f7731c] text-white font-bold py-1 px-3 rounded-md">
-            Logout
-          </button>
-        </>
+        <div className="p-2 h-screen flex flex-col justify-center">
+          <div className="mb-5 w-full sm:w-[500px] mx-auto">
+            <GiGamepadCross size={50} className="mx-auto" />
+            <p className="text-2xl font-bold text-center border-b-2 border-blue-900 mb-5 sm:text-3xl md:text-4xl">
+              Final Scrore: <span>{score}</span>
+            </p>
+
+            <div className="flex flex-col gap-3 w-[280px] sm:w-[400px] mx-auto">
+              <button
+                className="px-3 py-1 font-bold text-white bg-blue-700 rounded-md"
+                onClick={() => handlePlayAgain()}
+              >
+                Play Again
+              </button>
+              <button className="bg-[#f7731c] text-white font-bold py-1 px-3 rounded-md">
+                Logout
+              </button>
+            </div>
+          </div>
+        </div>
       ) : (
         <>
           {questions ? (
