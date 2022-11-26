@@ -20,6 +20,8 @@ const Index = ({ questions }) => {
   const [options, setOption] = useState([]);
   const [score, setScore] = useState(0);
   const [correct, setCorrect] = useState("");
+  const [selected, setSelected] = useState();
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     console.log(questions);
@@ -35,6 +37,24 @@ const Index = ({ questions }) => {
 
   const handleShuffle = (options) => {
     return options.sort(() => Math.random() - 0.5);
+  };
+
+  const handleSelect = (i) => {
+    if (selected === i && selected === correct) {
+      return "bg-[#06a600]";
+    } else if (selected === i && selected !== correct) {
+      return "bg-[#ba0000]";
+    } else if (i === correct) {
+      return "bg-[#06a600] ";
+    } else {
+      return "bg-slate-200 opacity-60";
+    }
+  };
+
+  const handleCheck = (i) => {
+    setSelected(i);
+    if (i === correct) setScore(score + 10);
+    setError(false);
   };
 
   return (
@@ -74,8 +94,12 @@ const Index = ({ questions }) => {
                   {options &&
                     options.map((i) => (
                       <button
+                        onClick={() => handleCheck(i)}
                         key={i}
-                        className={`p-1 border-2 border-blue-900 `}
+                        className={`p-1 border-2 border-blue-900 ${
+                          selected && handleSelect(i)
+                        }`}
+                        disabled={selected}
                       >
                         {i}
                       </button>
