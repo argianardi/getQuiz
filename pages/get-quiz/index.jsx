@@ -57,6 +57,17 @@ const Index = ({ questions }) => {
     setError(false);
   };
 
+  const handleNext = () => {
+    if (currQues > 8) {
+      setEndQuiz(!endQuiz);
+    } else if (selected) {
+      setCurrQues(currQues + 1);
+      setSelected();
+    } else {
+      setError("Please select an option first");
+    }
+  };
+
   return (
     <div>
       {endQuiz ? (
@@ -91,6 +102,13 @@ const Index = ({ questions }) => {
                 </div>
 
                 <div className="flex flex-col w-full sm:w-72 justify-center mx-auto gap-2">
+                  {error && (
+                    <p className="bg-[#f7731c] py-1 px-2 text-white font-bold">
+                      Please select an option first{" "}
+                      <span className="text-red-900">**</span>
+                    </p>
+                  )}
+
                   {options &&
                     options.map((i) => (
                       <button
@@ -113,7 +131,10 @@ const Index = ({ questions }) => {
                   >
                     Quit
                   </button>
-                  <button className="rounded-sm px-3 py-1 font-bold text-white bg-blue-900">
+                  <button
+                    className="rounded-sm px-3 py-1 font-bold text-white bg-blue-900"
+                    onClick={() => handleNext()}
+                  >
                     Next Question
                   </button>
                 </div>
