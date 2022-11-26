@@ -68,12 +68,22 @@ const Index = ({ questions }) => {
     }
   };
 
+  const handlePlayAgain = () => {
+    setCurrQues(0);
+    setScore(0);
+    setSelected();
+    setEndQuiz(!endQuiz);
+  };
+
   return (
     <div>
       {endQuiz ? (
         <>
           <p>Final Score: {score}</p>
-          <button className="px-3 py-1 font-bold text-white bg-blue-700 rounded-md">
+          <button
+            className="px-3 py-1 font-bold text-white bg-blue-700 rounded-md"
+            onClick={() => handlePlayAgain()}
+          >
             Play Again
           </button>
           <button className="bg-[#f7731c] text-white font-bold py-1 px-3 rounded-md">
