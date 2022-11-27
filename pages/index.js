@@ -2,6 +2,7 @@ import Head from "next/head";
 import { useState } from "react";
 import { GiGamepadCross } from "react-icons/gi";
 import { useForm } from "react-hook-form";
+import ErrorMessage from "../components/ErrorMessage";
 
 export default function Home() {
   const {
@@ -40,7 +41,7 @@ export default function Home() {
               className=" bg-putihAlta w-full sm:w-[500px] flex flex-col gap-4"
               onSubmit={handleSubmit(onSubmit)}
             >
-              <div className="flex items-center px-0 sm:px-3 ">
+              <div className="px-0 sm:px-3 ">
                 <input
                   type="email"
                   className="font-Roboto font-normal w-full text-base pl-6 border-[#25732D] text-black rounded-xl shadow-lg block  p-3 dark:shadow-md  "
@@ -49,16 +50,18 @@ export default function Home() {
                   onChange={(e) => setEmail(e.target.value)}
                   {...register("email", { required: true })}
                 />
+                <ErrorMessage errors={errors.email} />
               </div>
-              <div className="flex items-center px-0 sm:px-3">
+              <div className=" px-0 sm:px-3">
                 <input
                   type="password"
                   className=" w-full  font-Roboto font-normal text-base pl-6 border-[#25732D] text-black rounded-xl shadow-lg  block  py-3  "
                   placeholder="Password"
                   required
                   onChange={(e) => setPassword(e.target.value)}
-                  {...register("password", { required: true, minLength: 8 })}
+                  {...register("password", { required: true, minLength: 6 })}
                 />
+                <ErrorMessage errors={errors.password} />
               </div>
               <div className="w-full px-3">
                 <button
