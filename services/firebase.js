@@ -21,6 +21,10 @@ if (!getApps().length) {
 
 export const FirebaseAuth = getAuth();
 
+export const Authentication = () => {
+  return FirebaseAuth;
+};
+
 export const SignUp = async (email, password) => {
   await createUserWithEmailAndPassword(FirebaseAuth, email, password);
 };
