@@ -3,6 +3,7 @@ import { useState } from "react";
 import { GiGamepadCross } from "react-icons/gi";
 import { useForm } from "react-hook-form";
 import ErrorMessage from "../components/ErrorMessage";
+import { GetSignInErrorMessage, SignIn } from "../services/firebase";
 
 export default function Home() {
   const {
@@ -14,8 +15,14 @@ export default function Home() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const onSubmit = (values) => {
-    console.log(values);
+  const onSubmit = async (values) => {
+    const { email, password } = values;
+    try {
+      await SignIn(email, password);
+    } catch (error) {
+      const message = GetSignInErrorMessage(error.code);
+      console.log(message);
+    }
   };
 
   return (

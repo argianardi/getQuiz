@@ -32,3 +32,13 @@ export const SignIn = async (email, password) => {
 export const SignOut = async () => {
   await signOut(FirebaseAuth);
 };
+
+export const GetSignInErrorMessage = (code) => {
+  switch (code) {
+    case "auth/user-not-found":
+      return "Your email is not registered";
+    case "auth/wrong-password":
+    default:
+      return "Wrong password";
+  }
+};
