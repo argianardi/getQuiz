@@ -1,7 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Authentication } from "../services/firebase";
 
-const AuthStateChangeProvider = () => {
+const AuthStateChangeProvider = ({ children }) => {
+  const [isLoading, setIsloading] = useState(true);
+
   const InitiateAuthStateChange = () => {
     Authentication().onAuthStateChanged((user) => {
       if (user) {
@@ -10,6 +12,7 @@ const AuthStateChangeProvider = () => {
       } else {
         console.log("User is not authenticated");
       }
+      setIsloading(false);
     });
   };
 
@@ -17,7 +20,15 @@ const AuthStateChangeProvider = () => {
     InitiateAuthStateChange();
   }, []);
 
-  return <></>;
+  if (isLoading) {
+    return (
+      <div className="h-screen min-w-full">
+        <p className="mt-[300px] text-5xl text-center">Loading.....</p>
+      </div>
+    );
+  }
+
+  return children;
 };
 
 export default AuthStateChangeProvider;
