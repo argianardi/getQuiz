@@ -1,6 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { GiGamepadCross } from "react-icons/gi";
+import {
+  GiGamepadCross,
+  GiSandsOfTime,
+  GiPencil,
+  GiAchievement,
+} from "react-icons/gi";
 
 export const getServerSideProps = async () => {
   const { data } = await axios.get(
@@ -22,9 +27,19 @@ const Index = ({ questions }) => {
   const [correct, setCorrect] = useState("");
   const [selected, setSelected] = useState();
   const [error, setError] = useState(false);
+  const [timer, setTimer] = useState(25);
 
+  let waktu;
   useEffect(() => {
-    console.log(questions);
+    waktu = setInterval(() => {
+      setTimer(timer - 1);
+    }, 1000);
+
+    return () => clearInterval(waktu);
+  });
+
+  let startTime;
+  useEffect(() => {
     setCorrect(questions[currQues]?.correct_answer);
     setOption(
       questions &&
@@ -33,6 +48,11 @@ const Index = ({ questions }) => {
           ...questions[currQues]?.incorrect_answers,
         ])
     );
+    startTime = setTimeout(() => {
+      handleTimeUp();
+    }, 25000);
+
+    return () => clearInterval(startTime);
   }, [currQues, questions]);
 
   const handleShuffle = (options) => {
@@ -63,8 +83,19 @@ const Index = ({ questions }) => {
     } else if (selected) {
       setCurrQues(currQues + 1);
       setSelected();
+      setTimer(25);
     } else {
       setError("Please select an option first");
+    }
+  };
+
+  const handleTimeUp = () => {
+    if (currQues > 8) {
+      setEndQuiz(!endQuiz);
+    } else {
+      setCurrQues(currQues + 1);
+      setSelected();
+      setTimer(25);
     }
   };
 
@@ -72,6 +103,7 @@ const Index = ({ questions }) => {
     setCurrQues(0);
     setScore(0);
     setSelected();
+    setTimer(25);
     setEndQuiz(!endQuiz);
   };
 
@@ -102,20 +134,32 @@ const Index = ({ questions }) => {
         <>
           {questions ? (
             <div className="p-2 h-screen flex flex-col justify-center">
-              <div className="mb-5 w-full sm:w-[500px] mx-auto">
+              <div className="mb-2 w-full sm:w-[500px] mx-auto">
                 <GiGamepadCross size={50} className="mx-auto" />
                 <p className="text-2xl font-bold text-center border-b-2 border-blue-900 mb-5 sm:text-3xl md:text-4xl">
                   Welcome to getQuiz
                 </p>
+                <div className="flex items-center justify-center ">
+                  <GiSandsOfTime size={30} />
+                  <h2 className="text-center my-1 text-2xl">
+                    Timer: <span className="font-bold">{timer}</span>
+                  </h2>
+                </div>
               </div>
 
-              <div className="shadow-md shadow-slate-600 rounded-md p-2 sm:p-10 w-full sm:w-[500px] mx-auto">
+              <div className="shadow-md shadow-slate-600 rounded-md p-2 sm:p-3 w-full sm:w-[500px] mx-auto">
                 <div className="flex justify-around sm:justify-between text-xl">
-                  <p>Question {currQues + 1}</p>
-                  <p>Score: {score}</p>
+                  <div className="flex items-center">
+                    <GiPencil size={30} />
+                    <p>Question {currQues + 1}</p>
+                  </div>
+                  <div className="flex items-center">
+                    <GiAchievement size={30} />
+                    <p>Score: {score}</p>
+                  </div>
                 </div>
 
-                <div className="text-lg mb-5 font-medium">
+                <div className="text-lg mb-3 font-medium">
                   <p>{questions[currQues].question}</p>
                 </div>
 
