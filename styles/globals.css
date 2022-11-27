@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.effectBlur {
+  backdrop-filter: blur(5px);
+}
+
 .bb {
   border: solid blue;
 }
