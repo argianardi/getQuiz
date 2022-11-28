@@ -25,6 +25,4 @@ const StartQuiz = () => {
   );
 };
 
-export default StartQuiz;
-
-// export default withProtected(StartQuiz);
+export default withProtected(StartQuiz);
