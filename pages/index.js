@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import ErrorMessage from "../components/ErrorMessage";
 import { GetSignInErrorMessage, SignIn } from "../services/firebase";
 import withUnProtected from "../hoc/withUnProtected";
+import Link from "next/link";
 
 const Home = () => {
   const {
@@ -40,10 +41,12 @@ const Home = () => {
         <div className="shadow-md shadow-slate-600 rounded-md p-2 sm:p-3 w-full sm:w-[500px] mx-auto bg-white/10 effectBlur ">
           <div className="mb-2 w-full  mx-auto">
             <GiGamepadCross size={50} className="mx-auto" />
-            <p className="text-2xl font-bold text-center border-b-2 border-blue-900 mb-5 sm:text-3xl md:text-4xl">
+            <p className="text-2xl font-bold text-center border-b-2 border-blue-900 mb-3 sm:text-3xl md:text-4xl">
               Welcome to getQuiz
             </p>
           </div>
+
+          <h2 className="text-blue-900 mb-5 text-xl font-bold">Sign In</h2>
 
           <div className="flex flex-wrap justify-center ">
             {/* form Login */}
@@ -89,6 +92,13 @@ const Home = () => {
                 </button>
               </div>
             </form>
+
+            <p>
+              Don't have an account?{" "}
+              <Link href="/signup" className="text-blue-600 hover:bg-slate-300">
+                Sign up
+              </Link>{" "}
+            </p>
           </div>
         </div>
       </div>
