@@ -94,9 +94,9 @@ const Home = () => {
             </form>
 
             <p>
-              Don't have an account?{" "}
+              Dont &apos; have an account?
               <Link href="/signup" className="text-blue-600 hover:bg-slate-300">
-                Sign up
+                {""} Sign Up
               </Link>{" "}
             </p>
           </div>
