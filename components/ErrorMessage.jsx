@@ -1,9 +1,12 @@
 import React from "react";
 
 const getErrorMessage = (type) => {
+  console.log(type);
   switch (type) {
     case "minLength":
       return "The number of characters does not meet the minimum";
+    case "validate":
+      return "The password is not same";
     case "required":
     default:
       return "Please fill in the fields";
