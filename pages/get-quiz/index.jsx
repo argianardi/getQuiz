@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import withProtected from "../../hoc/withProtected";
 import {
   GiGamepadCross,
   GiSandsOfTime,
@@ -19,7 +20,7 @@ export const getServerSideProps = async () => {
   };
 };
 
-const Index = ({ questions }) => {
+const GetQuiz = ({ questions }) => {
   const [endQuiz, setEndQuiz] = useState(false);
   const [currQues, setCurrQues] = useState(0);
   const [options, setOption] = useState([]);
@@ -213,4 +214,4 @@ const Index = ({ questions }) => {
   );
 };
 
-export default Index;
+export default withProtected(GetQuiz);
