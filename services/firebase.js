@@ -46,3 +46,12 @@ export const GetSignInErrorMessage = (code) => {
       return "Wrong password";
   }
 };
+
+export const GetSignUpErrorMessage = (code) => {
+  switch (code) {
+    case "auth/email-already-in-use":
+      return "Email already in use";
+    default:
+      return "Sign Up Error";
+  }
+};

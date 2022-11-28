@@ -1,8 +1,13 @@
 import Link from "next/link";
-import React, { useRef, useState } from "react";
+import React, { use, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { GiGamepadCross } from "react-icons/gi";
 import ErrorMessage from "../../components/ErrorMessage";
+import withUnProtected from "../../hoc/withUnProtected";
+import {
+  GetSignUpErrorMessage,
+  SignUp as SignUpToFirebase,
+} from "../../services/firebase";
 
 const SignUp = () => {
   const {
@@ -11,15 +16,22 @@ const SignUp = () => {
     watch,
     formState: { errors },
   } = useForm();
+  const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const Password = useRef({});
   Password.current = watch("password");
 
-  console.log({ pass: Password.current });
-
-  const onSubmit = (values) => {
-    console.log(values);
+  const onSubmit = async (values) => {
+    setIsLoading(true);
+    const { email, password } = values;
+    try {
+      await SignUpToFirebase(email, password);
+    } catch (error) {
+      const message = GetSignUpErrorMessage(error.code);
+      alert(message);
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -79,10 +91,14 @@ const SignUp = () => {
             </div>
             <div className="ml-2">
               <input
+                id="agreement"
                 type="checkbox"
                 {...register("agreement", { required: true })}
               />
-              <label> Agree with the terms and conditions</label>
+              <label htmlFor="agreement">
+                {" "}
+                Agree with the terms and conditions
+              </label>
               <ErrorMessage errors={errors.agreement} />
             </div>
             <div className="w-full px-3">
@@ -90,7 +106,13 @@ const SignUp = () => {
                 className="w-full py-2 mt-8 text-xl text-white rounded-sm shadow-lg font-poppins bg-blue-900"
                 type="submit"
               >
-                Sign Up
+                {isLoading ? (
+                  <div className="">
+                    <p className=" text-center">Loading.....</p>
+                  </div>
+                ) : (
+                  <p>Sign Up</p>
+                )}
               </button>
             </div>
           </form>
@@ -107,4 +129,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default withUnProtected(SignUp);
