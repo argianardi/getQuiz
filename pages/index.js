@@ -12,17 +12,19 @@ const Home = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-
+  const [isLoading, setIsloading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const onSubmit = async (values) => {
+    setIsloading(true);
     const { email, password } = values;
     try {
       await SignIn(email, password);
     } catch (error) {
       const message = GetSignInErrorMessage(error.code);
       console.log(message);
+      setIsloading(false);
     }
   };
 
@@ -73,10 +75,17 @@ const Home = () => {
               </div>
               <div className="w-full px-3">
                 <button
-                  className="w-full py-2 mt-8 text-xl text-white rounded-sm shadow-lg hover:bg-orange-600 font-poppins bg-blue-900"
+                  className="w-full py-2 mt-8 text-xl text-white rounded-sm shadow-lg font-poppins bg-blue-900"
                   type="submit"
+                  disabled={isLoading}
                 >
-                  Login
+                  {isLoading ? (
+                    <div className="">
+                      <p className=" text-center">Loading.....</p>
+                    </div>
+                  ) : (
+                    <p>Sign In</p>
+                  )}
                 </button>
               </div>
             </form>
