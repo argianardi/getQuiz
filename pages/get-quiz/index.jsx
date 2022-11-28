@@ -113,8 +113,8 @@ const GetQuiz = ({ questions }) => {
   return (
     <div>
       {endQuiz ? (
-        <div className="p-2 h-screen flex flex-col justify-center ">
-          <div className="mb-5 w-full sm:w-[500px] mx-auto">
+        <div className="p-2 h-screen flex flex-col justify-center bgLamp">
+          <div className="mb-5 w-full sm:w-[500px] mx-auto rounded-md bg-white/20  effectBlur py-16">
             <GiGamepadCross size={50} className="mx-auto" />
             <div className="flex border-b-2 border-blue-900  mb-5 justify-center items-center">
               <GiLaurelsTrophy size={40} />
