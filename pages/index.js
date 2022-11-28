@@ -4,8 +4,9 @@ import { GiGamepadCross } from "react-icons/gi";
 import { useForm } from "react-hook-form";
 import ErrorMessage from "../components/ErrorMessage";
 import { GetSignInErrorMessage, SignIn } from "../services/firebase";
+import withUnProtected from "../hoc/withUnProtected";
 
-export default function Home() {
+const Home = () => {
   const {
     register,
     handleSubmit,
@@ -84,4 +85,6 @@ export default function Home() {
       </div>
     </>
   );
-}
+};
+
+export default withUnProtected(Home);
