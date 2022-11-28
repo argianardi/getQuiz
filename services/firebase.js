@@ -7,12 +7,12 @@ import {
 } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_API_KEY,
-  authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
-  projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
-  storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET,
-  messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
-  appId: process.env.NEXT_PUBLIC_APP_ID,
+  apiKey: "AIzaSyBdcql-KauI5ZnzJl6uZG3tDOwgTiEYBdE",
+  authDomain: "getquiz-auth.firebaseapp.com",
+  projectId: "getquiz-auth",
+  storageBucket: "getquiz-auth.appspot.com",
+  messagingSenderId: "1005076674295",
+  appId: "1:1005076674295:web:e0e78c3b0c560ad2f085f2",
 };
 
 if (!getApps().length) {
