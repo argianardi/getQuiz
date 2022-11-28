@@ -1,11 +1,14 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import withProtected from "../../hoc/withProtected";
 import {
   GiGamepadCross,
   GiSandsOfTime,
   GiPencil,
   GiAchievement,
+  GiLaurelsTrophy,
 } from "react-icons/gi";
+import { SignOut } from "../../services/firebase";
 
 export const getServerSideProps = async () => {
   const { data } = await axios.get(
@@ -19,7 +22,7 @@ export const getServerSideProps = async () => {
   };
 };
 
-const Index = ({ questions }) => {
+const GetQuiz = ({ questions }) => {
   const [endQuiz, setEndQuiz] = useState(false);
   const [currQues, setCurrQues] = useState(0);
   const [options, setOption] = useState([]);
@@ -110,12 +113,15 @@ const Index = ({ questions }) => {
   return (
     <div>
       {endQuiz ? (
-        <div className="p-2 h-screen flex flex-col justify-center">
-          <div className="mb-5 w-full sm:w-[500px] mx-auto">
+        <div className="p-2 h-screen flex flex-col justify-center bgLamp">
+          <div className="mb-5 w-full sm:w-[500px] mx-auto rounded-md bg-white/20  effectBlur py-16">
             <GiGamepadCross size={50} className="mx-auto" />
-            <p className="text-2xl font-bold text-center border-b-2 border-blue-900 mb-5 sm:text-3xl md:text-4xl">
-              Final Scrore: <span>{score}</span>
-            </p>
+            <div className="flex border-b-2 border-blue-900  mb-5 justify-center items-center">
+              <GiLaurelsTrophy size={40} />
+              <p className="text-2xl font-bold text-center  sm:text-3xl md:text-4xl">
+                Final Score: <span>{score}</span>
+              </p>
+            </div>
 
             <div className="flex flex-col gap-3 w-[280px] sm:w-[400px] mx-auto">
               <button
@@ -124,8 +130,11 @@ const Index = ({ questions }) => {
               >
                 Play Again
               </button>
-              <button className="bg-[#f7731c] text-white font-bold py-1 px-3 rounded-md">
-                Logout
+              <button
+                className="bg-[#f7731c] text-white font-bold py-1 px-3 rounded-md"
+                onClick={SignOut}
+              >
+                Sign Out
               </button>
             </div>
           </div>
@@ -213,4 +222,4 @@ const Index = ({ questions }) => {
   );
 };
 
-export default Index;
+export default withProtected(GetQuiz);
