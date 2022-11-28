@@ -6,6 +6,10 @@
   backdrop-filter: blur(5px);
 }
 
+.bgLamp {
+  background-image: url("../img/bgLamp.png");
+}
+
 .bb {
   border: solid blue;
 }
