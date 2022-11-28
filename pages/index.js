@@ -22,9 +22,9 @@ const Home = () => {
     try {
       await SignIn(email, password);
     } catch (error) {
-      const message = GetSignInErrorMessage(error.code);
-      console.log(message);
       setIsloading(false);
+      const message = GetSignInErrorMessage(error.code);
+      alert(message);
     }
   };
 
